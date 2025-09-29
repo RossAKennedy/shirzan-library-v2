@@ -1,2 +1,8 @@
-[README (1).md](https://github.com/user-attachments/files/22586862/README.1.md)
-Shirzan Library scaffolding placeholder. See previous message for full instructions.
+# Shirzan Library 📚
+
+Welcome to the Shirzan Library — a digital archive of scrolls, lore, wit, and reflections from the Realm of Glimmerglass.
+
+---
+
+## 📂 Repository Structure
+
