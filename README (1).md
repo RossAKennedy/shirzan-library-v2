@@ -1,1 +1,0 @@
-Shirzan Library scaffolding placeholder. See previous message for full instructions.
