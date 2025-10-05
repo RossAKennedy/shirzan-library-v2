@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>The Restricted Stacks</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
+	/* Full-size interactive portal */
+	.portal-wrap{
+	width: min(1100px, 96vw);
+	aspect-ratio: 3 / 2;       /* matches your poker image ratio */
+	margin: 14px auto 12px;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid #18181b;
+	box-shadow: 0 30px 80px rgba(0,0,0,.45);
+	background: #0b0b0f;
+	}
+	.portal-frame{
+	width: 100%;
+	height: 100%;		
+	border: 0;
+	display: block;
+}
+
+    :root{ --ink:#e5e7eb; --muted:#9ca3af; }
+    html,body{height:100%}
+    body{
+      margin:0; background:#0b0b0f; color:var(--ink);
+      font-family:system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid; place-items:center;
+    }
+    .room{ width:min(1280px,96vw); padding:28px; text-align:center }
+    h1{ font-size:clamp(22px,4.2vw,34px); margin:0 0 6px }
+    p{ color:var(--muted); margin:0 0 18px }
+
+    /* “stone” backdrop + candle glow */
+    .stage{
+      position:relative; border-radius:18px; overflow:hidden;
+      background:
+        radial-gradient(1200px 400px at 50% -10%, rgba(255,220,140,.10), transparent 60%),
+        repeating-linear-gradient(45deg,#0e0e12 0 22px,#0b0b0f 22px 44px);
+      border:1px solid #18181b; box-shadow: 0 30px 80px rgba(0,0,0,.45);
+      padding:26px;
+    }
+    .table{ margin:20px auto 8px; width:min(680px,90%); height:10px;
+            background:linear-gradient(#1f2937,#0f172a); border-radius:10px; box-shadow:0 20px 40px rgba(0,0,0,.5)}
+    #dark-arts-entry img {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	#dark-arts-entry img:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 25px rgba(173, 216, 230, 0.7);
+	}
+
+    @keyframes appear{ to{ opacity:.85; transform:scale(1.04); } }
+    @keyframes vanish{ to{ opacity:0; transform:scale(1.0); } }
+
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px }
+    .btn{ display:inline-block; padding:10px 14px; border-radius:999px; text-decoration:none;
+          border:1px solid #374151; color:var(--ink); background:#0f172a }
+    .btn.link{ background:transparent }
+    .hint{ font-size:12px; color:var(--muted); margin-top:10px }
+    /* optional Bramble art (auto-hides if missing) */
+    .bramble{ position:absolute; bottom:0; left:0; width:min(34%,360px); filter:drop-shadow(0 8px 18px rgba(0,0,0,.6)); }
+  
+/* Poe-try Wall Tightened Spacing */
+.poe-line {
+  margin-bottom: 6px;
+  min-height: auto;
+}
+.poe-actions {
+  margin-top: 4px;
+  gap: 6px;
+}
+.poe-credits {
+  margin-top: 4px;
+}
+</style>
+<style>
+/* --- Dark Arts 3-column layout --- */
+.dark-arts-grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(520px, 1fr) minmax(180px, 260px);
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+.dark-arts-grid .toc { text-align: left; }
+.dark-arts-grid .toc h3 { font-size: 1.05rem; margin: 0 0 .5rem; }
+.dark-arts-grid .toc ul { list-style: none; padding: 0; margin: 0; }
+.dark-arts-grid .toc li { margin: .4rem 0; }
+.dark-arts-grid .toc a { color: #e5e5e5; text-decoration: none; }
+.dark-arts-grid .toc a:hover { text-decoration: underline; }
+
+.dark-arts-grid .portal { text-align: center; }
+@media (max-width: 980px) {
+  .dark-arts-grid { grid-template-columns: 1fr; }
+}
+</style><style>
+/* === Dark Arts layout fixes (2025-10-04) === */
+.dark-arts-grid {
+  display: grid;
+  grid-template-columns: 260px minmax(600px, 1fr) 260px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+.dark-arts-grid .portal-wrap { width: 100%; }
+.dark-arts-grid .toc {
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  margin-top: 0;
+}
+@media (max-width: 980px) {
+  .dark-arts-grid { grid-template-columns: 1fr; }
+  .dark-arts-grid .toc { position: static; }
+}
+</style><style>
+/* Dark Arts Chamber layout enhancement */
+.dark-arts-grid {
+  display: grid;
+  grid-template-columns: 260px minmax(900px, 1fr) 260px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+.dark-arts-grid .portal-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+.dark-arts-grid .toc {
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  margin-top: 0;
+}
+@media (max-width: 980px) {
+  .dark-arts-grid {
+    grid-template-columns: 1fr;
+  }
+  .dark-arts-grid .toc {
+    position: static;
+  }
+}
+</style><style>
+/* === Final centering & sizing overrides === */
+.dark-arts-grid{
+  margin-left:auto;
+  margin-right:auto;
+  justify-content:center;
+}
+.portal{
+  display:flex;
+  justify-content:center;
+}
+.portal-wrap{
+  width:min(1200px,100%);
+  margin:0 auto;
+}
+.portal-frame{
+  display:block;
+  margin:0 auto;
+}
+/* make sure center track is generous and actually centers */
+.dark-arts-grid{
+  grid-template-columns: 260px minmax(900px, 1200px) 260px;
+}
+</style><style>
+/* Compact spacing below the Dark Arts portal */
+.dark-arts-grid + * { margin-top: 10px !important; }
+#dark-arts-entry { margin-bottom: 8px; }
+section h2 { margin: 8px 0; }
+</style><style>
+.actions { margin: 12px auto 24px; text-align: center; }
+.actions .btn.link { padding: .5rem .9rem; border: 1px solid #444; border-radius: 8px; text-decoration: none; color: #e5e5e5; }
+.actions .btn.link:hover { background: #1f1f22; }
+</style></head>
+<body>
+<div class="room">
+<h1>🕯️ The Dark Arts Chamber</h1>
+<p>Ravens whisper in the rafters. The candles listen. Speak softly.</p>
+<!-- Dark Arts Section (full-size, interactive portal) -->
+<section class="dark-arts-grid" id="dark-arts-entry"><nav class="toc"><h3>Restricted · Contents</h3><ul><li><a href="forbidden/">📜 Forbidden Scrolls</a></li><li><a href="trap/">🪤 The Trap</a></li><li><a href="wit-worth-stealing/poker-night.html">🎭 Wit Worth Stealing</a></li><li><a href="../">↩︎ Back to Library</a></li></ul></nav><div class="portal"><div class="portal-wrap"><iframe class="portal-frame" loading="eager" referrerpolicy="no-referrer" scrolling="no" src="poker-room.html" title="Dark Arts Poker Room"></iframe></div></div><nav class="toc"><h3>More Rooms</h3><ul><li><a href="alchemy/index.html">⚗️ Alchemy</a></li><li><a href="illusions/index.html">🪞 Illusions</a></li><li><a href="records/index.html">📚 Records</a></li><li><a href="philosophy/">⚖️ Philosophy</a></li></ul></nav></section>
+<!-- Panorama Look-Around (no libraries) -->
+<style>
+  .pano{
+    width:min(980px,94vw);
+    height:420px;
+    margin:20px auto;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid #18181b;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    background:#0b0b0f url("../assets/img/room-panorama.jpg") center/auto 100% repeat-x;
+    /* Trick: repeat-x lets us wrap around seamlessly if the image edges match */
+    cursor:grab;
+    position:relative;
+  }
+  .pano:active{ cursor:grabbing; }
+  /* Optional vignette for mood */
+  .pano::after{
+    content:"";
+    position:absolute;inset:0;
+    background:radial-gradient(120% 80% at 50% 50%, transparent, rgba(0,0,0,.35) 65%, rgba(0,0,0,.6));
+    pointer-events:none;
+  }
+</style>
+<script>
+(function(){
+  const el = document.getElementById('pano');
+  // state
+  let dragging = false, lastX = 0, bgX = 50; // percent along the image
+  let velocity = 0, raf = null;
+
+  // helpers
+  function setPos(p){ 
+    bgX = (p % 100 + 100) % 100; // wrap 0-100
+    el.style.backgroundPosition = `${bgX}% 50%`;
+  }
+
+  // mouse move-to-look (hover pan)
+  el.addEventListener('mousemove', e => {
+    if (dragging) return; // dragging uses different logic
+    const rect = el.getBoundingClientRect();
+    const pct = ((e.clientX - rect.left) / rect.width) * 100;
+    setPos(pct);
+  });
+
+  // drag to spin with inertia
+  function onDown(e){
+    dragging = true;
+    lastX = ('touches' in e) ? e.touches[0].clientX : e.clientX;
+    velocity = 0;
+    cancelAnimationFrame(raf);
+  }
+  function onMove(e){
+    if(!dragging) return;
+    const x = ('touches' in e) ? e.touches[0].clientX : e.clientX;
+    const dx = x - lastX;
+    lastX = x;
+    // dx -> percentage shift; tune 0.08 for sensitivity
+    const deltaPct = dx * 0.08;
+    setPos(bgX - deltaPct);
+    velocity = deltaPct; // store last movement for inertia
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    // inertia
+    const decay = 0.95;
+    function spin(){
+      if (Math.abs(velocity) < 0.02) return;
+      setPos(bgX - velocity);
+      velocity *= decay;
+      raf = requestAnimationFrame(spin);
+    }
+    raf = requestAnimationFrame(spin);
+  }
+
+  el.addEventListener('mousedown', onDown);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onUp);
+
+  // touch support
+  el.addEventListener('touchstart', onDown, {passive:true});
+  el.addEventListener('touchmove', onMove,   {passive:true});
+  el.addEventListener('touchend', onUp);
+
+  // start centered
+  setPos(50);
+})();
+</script>
+<!-- ───── Poe-try Wall ───────────────────────────────────────────── -->
+<style>
+  .poetry {
+    margin: 14px auto 0; width:min(720px,92%); text-align:center;
+    border:1px solid #1f2937; border-radius:14px; padding:14px 16px;
+    background:linear-gradient(180deg,#0f1320,#0b0b0f 60%);
+    box-shadow: inset 0 0 40px rgba(0,0,0,.35);
+  }
+  .poe-title { display:flex; align-items:center; gap:8px; justify-content:center;
+    font-weight:700; letter-spacing:.04em; color:#cbd5e1; margin:0 0 6px; font-size:14px; text-transform:uppercase;}
+  .poe-title .raven { filter:grayscale(1) contrast(1.2); font-size:16px }
+  .poe-line {
+    min-height:2.6em; line-height:1.3; font-size:clamp(16px,2.4vw,20px);
+    color:#e5e7eb; opacity:0; transition:opacity .6s ease;
+  }
+  .poe-line.show { opacity:1 }
+  .poe-credits { color:#94a3b8; font-size:12px; margin-top:6px }
+  .poe-actions { margin-top:8px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap }
+  .btn-ghost {
+    background:transparent; color:#e5e7eb; border:1px solid #374151;
+    border-radius:999px; padding:6px 10px; cursor:pointer;
+  }
+</style>
+<div aria-live="polite" class="poetry" id="poeWall">
+<div class="poe-title"><span class="raven">🐦‍⬛</span> Poe-try Wall</div>
+<div class="poe-line" id="poeLine"></div>
+<div class="poe-actions">
+<button class="btn-ghost" id="poePrev" type="button">◀︎ Back</button>
+<button class="btn-ghost" id="poePause" type="button">Nevermore (pause)</button>
+<button class="btn-ghost" id="poeNext" type="button">Next ▶︎</button>
+</div>
+<div class="poe-credits">Lines inspired by Edgar Allan Poe (public domain).</div>
+</div>
+<script>
+  (function(){
+    // Public-domain Poe snippets & nods (short for kid-friendly vibes)
+    const LINES = [
+      "Once upon a midnight dreary, while I pondered, weak and weary—",
+      "And the silken, sad, uncertain rustling of each purple curtain…",
+      "Deep into that darkness peering, long I stood there wondering, fearing—",
+      "Quoth the Raven—“Nevermore.”",
+      "All that we see or seem is but a dream within a dream.",
+      "And the stars never rise but I feel the bright eyes…",
+      "From childhood’s hour I have not been as others were…",
+      "Is all that we see or seem but a dream within a dream?"
+    ];
+    const el = document.getElementById('poeLine');
+    const prev = document.getElementById('poePrev');
+    const next = document.getElementById('poeNext');
+    const pauseBtn = document.getElementById('poePause');
+
+    let i = 0, paused = false, timer = null, dwell = 4200;
+
+    function show(idx){
+      i = (idx + LINES.length) % LINES.length;
+      el.classList.remove('show');
+      // small delay so fade works
+      setTimeout(()=>{ el.textContent = LINES[i]; el.classList.add('show'); }, 60);
+    }
+
+    function schedule(){
+      clearTimeout(timer);
+      if(paused) return;
+      timer = setTimeout(()=>{ show(i+1); schedule(); }, dwell);
+    }
+
+    prev.addEventListener('click', ()=>{ paused=false; pauseBtn.textContent='Nevermore (pause)'; show(i-1); schedule(); });
+    next.addEventListener('click', ()=>{ paused=false; pauseBtn.textContent='Nevermore (pause)'; show(i+1); schedule(); });
+    pauseBtn.addEventListener('click', ()=>{
+      paused = !paused;
+      pauseBtn.textContent = paused ? 'Resume' : 'Nevermore (pause)';
+      if(!paused) schedule(); else clearTimeout(timer);
+    });
+
+    // Kick off
+    show(i); schedule();
+  })();
+</script>
+<!-- ──────────────────────────────────────────────────────────────── -->
+<div class="actions">
+<a class="btn link" href="../">↩︎ Back to Library</a>
+</div>
+</div>
+</body>
+</html>

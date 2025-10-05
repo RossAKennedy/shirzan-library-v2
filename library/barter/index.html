@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>House of Shirzan — Barter & Kindness Exchange</title>
+  <style>
+    :root{
+      --ink:#0d0d0f; --paper:#faf9f6; --muted:#6b7280; --line:#e5e7eb; --chip:#111827;
+      --brand:#b88a2d;
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--paper);color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;}
+    .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 56px}
+    header{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;gap:12px;margin-bottom:14px}
+    header img{width:100%;height:auto;object-fit:contain;display:block}
+    h1{margin:.2rem 0 0;text-align:center;font-size:clamp(22px,4.2vw,34px);letter-spacing:.02em}
+    .subtitle{margin-top:4px;text-align:center;color:var(--muted);font-size:clamp(12px,2vw,14px)}
+    .shell{display:grid;grid-template-columns:1fr 280px;gap:16px;margin-top:16px}
+    @media (max-width: 960px){ .shell{grid-template-columns:1fr} }
+
+    /* Left column (content) */
+    .scroll{
+      background:#fff;border:1px solid var(--line);border-radius:16px;
+      padding:18px 18px 22px;box-shadow:0 1px 4px rgba(0,0,0,.04);
+    }
+    .scroll h2{margin:1rem 0 .4rem;font-size:clamp(18px,2.8vw,22px)}
+    .scroll p{margin:.7rem 0;line-height:1.55}
+    .scroll ul, .scroll ol{margin:.7rem 0 .7rem 1.2rem}
+    .rule{margin:10px 0;padding:10px 12px;border-left:4px solid var(--brand);
+      background:#fff7e6;border-radius:8px}
+    .kbd{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3f4f6;border:1px solid #e5e7eb;border-bottom-width:2px;border-radius:6px;padding:2px 6px}
+
+    /* Right column (sticky info) */
+    .side{position:relative}
+    .card{position:sticky;top:12px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+    .crest{display:block;width:100%;max-width:220px;margin:0 auto 10px}
+    .seal{display:block;width:100%;max-width:160px;margin:8px auto 4px}
+    .coin{display:block;width:100%;max-width:240px;margin:12px auto}
+    .chip{display:inline-flex;align-items:center;gap:8px;
+      background:var(--chip);color:#fff;border-radius:999px;padding:8px 12px;font-weight:600;text-decoration:none}
+    .chip.link{background:transparent;color:#111827;border:1px solid #d1d5db}
+    .muted{color:var(--muted);font-size:13px}
+    .hr{height:1px;background:var(--line);margin:10px 0}
+    footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header>
+      <!-- Coat of Arms (auto-hide if missing) -->
+      <img src="../assets/img/crest-canon.png" alt="House of Shirzan coat of arms"
+           onerror="this.style.display='none'">
+      <div>
+        <h1>Barter & Kindness Exchange</h1>
+        <div class="subtitle">“No one in Glimmerglass hungers alone.” — Kingfisher’s Oath</div>
+      </div>
+      <!-- Wax seal (auto-hide if missing) -->
+      <img src="../assets/img/seal-canon.png" alt="Royal wax seal"
+           onerror="this.style.display='none'">
+    </header>
+
+    <div class="shell">
+      <!-- MAIN CONTENT: paste your full Barter page text here (unchanged) -->
+      <article class="scroll" id="barterContent">
+        <!-- ======= START: YOUR ORIGINAL BARTER TEXT ======= -->
+        <!-- Paste everything you already wrote below this line. No shortening. -->
+        <h2>Welcome</h2>
+        <p>This page explains how barter works within the House of Shirzan &amp; the Glimmerglass community.
+        It favors generosity, dignity, and craft. If you have an earlier Barter write-up, paste the full text here —
+        this layout will not trim or collapse long sections.</p>
+
+        <h2>Why Barter?</h2>
+        <p>Because coin is not the only measure of value. Time, skill, surplus, care, and wit all count.
+        The aim is simple: neighbors helping neighbors while keeping the dignity of both the giver and the receiver intact.</p>
+
+        <div class="rule"><strong>Promise:</strong> We will never require payment for rescue, food, or safety.
+        Barter is an invitation to participate — not a gate to keep anyone out.</div>
+
+        <h2>How It Works</h2>
+        <ol>
+          <li><strong>Offer</strong> something you have: time, skill, item, or surplus.</li>
+          <li><strong>Ask</strong> for what you need: repair help, tutoring, a ride, a warm meal.</li>
+          <li><strong>Match</strong> with a steward. If nothing matches today, a steward will hold the offer until it does.</li>
+          <li><strong>Honor</strong> the exchange with a handshake or mark (the wax seal stamp is for fun; kids love it).</li>
+        </ol>
+
+        <h2>Examples</h2>
+        <ul>
+          <li>Fix two leaky faucets → Receive two weeks of school lunches covered for a family in need.</li>
+          <li>Donate a cord of wood → Get help splitting and stacking yours before the first freeze.</li>
+          <li>Teach a Saturday art class → Borrow a sewing machine and lessons for your kid.</li>
+        </ul>
+
+        <h2>Stewards</h2>
+        <p>Stewards keep the ledger, resolve mismatches, and watch that the strong don’t take advantage of the kind.
+        They can say <em>no</em> when something smells off.</p>
+
+        <h2>Guidelines</h2>
+        <ul>
+          <li>Safety first. No tasks that endanger children or put anyone in harm’s way.</li>
+          <li>Never barter what you cannot afford to lose.</li>
+          <li>Be on time, be gracious, and if plans change, tell people early.</li>
+        </ul>
+
+        <h2>Make an Offer / Ask</h2>
+        <p>Bring your offer to the Kingfisher Keep desk or email the steward on duty. A printable form will live here later.</p>
+        <!-- ======= END: YOUR ORIGINAL BARTER TEXT ======= -->
+      </article>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="side">
+        <div class="card">
+          <img class="crest" src="../assets/img/coat-of-arms-square.png" alt="Coat of arms"
+               onerror="this.style.display='none'">
+
+          <div class="hr"></div>
+          <p class="muted">Stamp &amp; mark:</p>
+          <img class="seal" src="../assets/img/seal-canon.png" alt="Wax seal"
+               onerror="this.style.display='none'">
+
+          <div class="hr"></div>
+          <p class="muted">Founders’ Coin:</p>
+          <img class="coin" src="../assets/img/kingfisher-gold.png" alt="Kingfisher Keep coin"
+               onerror="this.style.display='none'">
+
+          <div class="hr"></div>
+          <a class="chip" href="../index.html">↩︎ Back to Library</a>
+          <a class="chip link" href="../restricted/index.html" style="margin-left:8px">🕯️ Restricted Stacks</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <p>Tip: Press <span class="kbd">Alt</span> + <span class="kbd">←</span> to jump back a page. Keep kindness at the center.</p>
+    </footer>
+  </div>
+</body>
+</html>
