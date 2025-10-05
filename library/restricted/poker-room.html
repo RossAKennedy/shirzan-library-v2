@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>console.log("Balloon build v2025-10-04-02");</script>
+
+  <meta charset="UTF-8">
+  <title>Dark Arts Poker Room</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: "IM Fell English", Georgia, serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    
+    .poker-scene {
+      position: relative;
+      display: inline-block;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .poker-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 5px solid #333;
+    }
+
+    .hotspot {
+      position: absolute;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      width: 7%;
+      height: 10%;
+      z-index: 1;
+    }
+
+    /* --- Balloon positions adjusted left by ~2% --- */
+    .poe-balloon    { top: 10%; left: 47%; }   /* was 49% */
+    .crow-balloon   { top: 26%; left: 37%; }   /* was 39% */
+    .wolf-balloon   { top: 39%; left: 34%; }   /* was 36% */
+	.dog-balloon    { left:25%  top:  46%  }   /* was 46% */
+    .donkey-balloon { top: 42%; left: 66%; }   /* was 68% */
+    .sheep-balloon  { top: 38%; left: 46%; }   /* was 48% */
+    .squirrel-balloon { top: 50%; left: 76%; } /* was 55% top, 78% left */
+
+    /* Hotspot positions */
+    .poe-hotspot    { top: 18%; left: 48%; width: 10%; height: 15%; }
+    .crow-hotspot   { top: 34%; left: 39%; }
+    .wolf-hotspot   { top: 47%; left: 35%; }
+    .donkey-hotspot { top: 50%; left: 60%; }
+    .sheep-hotspot  { top: 48%; left: 45%; }
+    .squirrel-hotspot { top: 55%; left: 80%; width: 6%; height: 12%; }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      display: none;
+      max-width: 280px;
+      background: rgba(255, 255, 255, .95);
+      color: #111;
+      border: 2px solid #222;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: 500 16px/1.25 "IM Fell English", Georgia, serif;
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
+      opacity: 0;
+      transition: opacity .2s ease;
+      z-index: 2;
+    }
+
+    .balloon .tail {
+      position: absolute;
+      width: 0;
+      height: 0;
+      bottom: -12px;
+      left: 26%;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid rgba(255, 255, 255, .95);
+      filter: drop-shadow(0 2px 0 #222);
+    }
+
+    .hotspot:hover + .balloon,
+    .hotspot:focus + .balloon,
+    .hotspot:active + .balloon {
+      display: block;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poker-scene debug">
+    <img src="../assets/img/dark-arts-poker.png" alt="Dark Arts Poker Scene" class="poker-image">
+
+    <!-- Poe -->
+    <button class="hotspot poe-hotspot" aria-label="Poe"></button>
+    <div class="balloon poe-balloon">
+      “This Chamber has <strong>Poe</strong>-tential.”
+      <span class="tail"></span>
+    </div>
+
+    <!-- Crow -->
+    <button class="hotspot crow-hotspot" aria-label="Crow"></button>
+    <div class="balloon crow-balloon">
+      “Play fair. We don’t want anybody eating crow.”
+      <span class="tail"></span>
+    </div>
+
+    <!-- Wolf -->
+    <button class="hotspot wolf-hotspot" aria-label="Wolf"></button>
+    <div class="balloon wolf-balloon">
+      “Hey Donk… I know what you have…”
+      <span class="tail"></span>
+    </div>
+	
+	<!-- 🐶 Dog -->
+	<button class="hotspot dog-hotspot" aria-label="Dog"></button>
+	<div class="balloon dog-balloon">
+		“Woof hand. I’m Tarot-fied. I fold.	”<br>
+		<span style="font-size: 1.3em; letter-spacing: 0.1em;">A♠ A♣ A♥ 8♠ 8♣</span>
+		<span class="tail"></span>
+	</div>
+
+
+    <!-- Donkey -->
+    <button class="hotspot donkey-hotspot" aria-label="Donkey"></button>
+    <div class="balloon donkey-balloon">
+      “Assuming makes an Ass out of U and Me.”
+      <span class="tail"></span>
+    </div>
+
+    <!-- Sheep -->
+    <button class="hotspot sheep-hotspot" aria-label="Sheep"></button>
+    <div class="balloon sheep-balloon">
+      “I don’t give a lamb.”
+      <span class="tail"></span>
+    </div>
+
+    <!-- Squirrel -->
+    <button class="hotspot squirrel-hotspot" aria-label="Squirrel"></button>
+    <div class="balloon squirrel-balloon">
+      “Look at the size of my nuts…”
+      <span class="tail"></span>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    const scene = document.querySelector('.poker-scene');
+    if (!scene) return;
+    const hotspots = [...scene.querySelectorAll('.hotspot')];
+
+    function closeAll() {
+      scene.querySelectorAll('.balloon').forEach(b => {
+        b.style.display = 'none';
+        b.style.opacity = 0;
+      });
+      hotspots.forEach(h => h.setAttribute('aria-expanded','false'));
+    }
+
+    hotspots.forEach(h => {
+      h.setAttribute('aria-expanded','false');
+      h.addEventListener('click', e => {
+        e.preventDefault();
+        const balloon = h.nextElementSibling;
+        if (!balloon || !balloon.classList.contains('balloon')) return;
+        const isOpen = balloon.style.display === 'block';
+        closeAll();
+        if (!isOpen) {
+          balloon.style.display = 'block';
+          requestAnimationFrame(() => { balloon.style.opacity = 1; });
+          h.setAttribute('aria-expanded','true');
+        }
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (!scene.contains(e.target)) closeAll();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeAll();
+    });
+  })();
+  </script>
+<style id="balloon-nudge-overrides">
+  /* shift every balloon ~½" left */
+  .poker-scene .balloon { left: calc(100% * 0) } /* noop to create a rule */
+
+  /* exact left/top overrides with !important so they apply no matter what */
+  .poe-balloon     { left: 45% !important; top: 10% !important; }
+  .crow-balloon    { left: 34% !important; top: 26% !important; }
+  .wolf-balloon    { left: 32% !important; top: 39% !important; }
+  .dog-balloon     { left: 25% !important; top: 46% !important; }
+  .donkey-balloon  { left: 62% !important; top: 42% !important; }
+  .sheep-balloon   { left: 44% !important; top: 43% !important; }
+  /* squirrel: also raise ~1" */
+  .squirrel-balloon{ left: 74% !important; top: 49% !important; }
+  /* DOG overrides — position + stable width so the box sits predictably */
+	.dog-hotspot   { top: 60% !important; left: 25% !important; width: 7% !important; height: 12% !important; }
+	.dog-balloon   { top: 56% !important; left: 28% !important; width: 220px !important; text-align: center; }
+	.dog-balloon .tail { left: 30% !important; }
+
+</style>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<div class="poker-scene">
+  <img src="dark-arts-poker.png" alt="Dark Arts Poker Scene" class="poker-image">
+
+  <!-- Crow -->
+  <button class="hotspot crow-hotspot" aria-label="Crow"></button>
+  <div class="balloon crow-balloon">
+    “This Chamber has <strong>Poe</strong>-tential.”
+    <span class="tail"></span>
+  </div>
+
+  <!-- Sheep -->
+  <button class="hotspot sheep-hotspot" aria-label="Sheep"></button>
+  <div class="balloon sheep-balloon">
+    “I don’t give a lamb.”
+    <span class="tail"></span>
+  </div>
+
+  <!-- Squirrel -->
+  <button class="hotspot squirrel-hotspot" aria-label="Squirrel"></button>
+  <div class="balloon squirrel-balloon">
+    “Look at the size of my nuts…”
+    <span class="tail"></span>
+  </div>
+
+  <!-- Wolf -->
+  <button class="hotspot wolf-hotspot" aria-label="Wolf"></button>
+  <div class="balloon wolf-balloon">
+    “Hey Donk… I know what you have…”
+    <span class="tail"></span>
+  </div>
+
+  <!-- Donkey -->
+  <button class="hotspot donkey-hotspot" aria-label="Donkey"></button>
+  <div class="balloon donkey-balloon">
+    “Assuming makes an Ass out of U and Me.”
+    <span class="tail"></span>
+  </div>
+</div>
+.poker-scene {
+  position: relative;
+  display: inline-block;
+}
+.poker-image {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Hotspot template */
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  width: 7%;
+  height: 10%;
+}
+
+/* Position each hotspot over the character (tweak these %) */
+.crow-hotspot    { top: 18%; left: 63%; }
+.sheep-hotspot   { top: 42%; left: 20%; }
+.squirrel-hotspot{ top: 58%; left: 12%; }
+.wolf-hotspot    { top: 45%; left: 38%; }
+.donkey-hotspot  { top: 50%; left: 72%; }
+
+/* Balloon styling */
+.balloon {
+  position: absolute;
+  display: none;
+  max-width: 260px;
+  background: rgba(255, 255, 255, .95);
+  color: #111;
+  border: 2px solid #222;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: 500 16px/1.25 "IM Fell English", Georgia, serif;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.balloon .tail {
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: -12px;
+  left: 26%;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid rgba(255, 255, 255, .95);
+  filter: drop-shadow(0 2px 0 #222);
+}
+
+/* Example balloon positions — adjust as needed */
+.crow-balloon    { top: 6%; left: 58%; }
+.sheep-balloon   { top: 32%; left: 18%; }
+.squirrel-balloon{ top: 48%; left: 8%; }
+.wolf-balloon    { top: 35%; left: 35%; }
+.donkey-balloon  { top: 40%; left: 68%; }
+
+/* Hover / focus reveal */
+.hotspot:focus + .balloon,
+.hotspot:active + .balloon,
+.hotspot:hover + .balloon {
+  display: block;
+  opacity: 1;
+}
