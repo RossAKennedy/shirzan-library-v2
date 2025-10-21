@@ -1,231 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>House of Shirzan · Glimmerglass Library</title>
-  <style>
-    :root { --ink:#0d0d0f; --paper:#faf9f6; --accent:#b88a2d; --muted:#6b7280; }
-    html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";color:var(--ink);background:var(--paper)}
-    .wrap{max-width:1080px;margin:0 auto;padding:20px 16px 56px}
-    header{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;gap:12px;margin-bottom:18px}
-    header img{display:block;width:100%;height:auto;object-fit:contain}
-    h1{font-size:clamp(22px,4.2vw,34px);text-align:center;margin:0;letter-spacing:.02em}
-    .subtitle{font-size:clamp(12px,2vw,14px);text-align:center;color:var(--muted);margin-top:6px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
-    .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:14px 14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-    .card h3{margin:0 0 8px;font-size:18px}
-    .card p{margin:0 0 12px;color:#374151;font-size:14px;line-height:1.35}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:10px 14px;font-weight:600;cursor:pointer;text-decoration:none}
-    .btn.secondary{background:#111827}
-    .btn.link{background:transparent;color:#111827;border:1px solid #d1d5db}
-    .row{display:flex;gap:8px;flex-wrap:wrap}
-    .muted{color:var(--muted)}
-    .kbd{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3f4f6;border:1px solid #e5e7eb;border-bottom-width:2px;border-radius:6px;padding:2px 6px}
-    footer{margin-top:40px;color:var(--muted);font-size:12px}
-    /* Modal */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:50}
-    .modal.open{display:flex}
-    .modal-inner{background:#fff;max-width:min(92vw,980px);max-height:85vh;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #eee}
-    .modal-body{padding:0;background:#111827}
-    .modal-body img{display:block;max-width:100%;height:auto;margin:0 auto}
-    /* Toast */
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:#111827;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-size:14px;display:none;z-index:60}
-    .toast.show{display:block}
-    /* Age Gate */
-    .age-gate{display:none}
-    .age-gate.open{display:block}
-    .gate{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px}
-  </style>
+  <title>Shirzan Library</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/library.css?v=5" />
+  <link rel="preload" as="image" href="assets/img/waterfall-scene.jpg">
+  <link rel="preload" href="assets/img/library-entrance.png" as="image">
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <img id="crestImg" alt="House of Shirzan Crest" loading="lazy" />
-      <div>
-        <h1>House of Shirzan — Glimmerglass Library</h1>
-        <div class="subtitle">Avise La Fin · Follow the White Stag to the Falls</div>
-      </div>
-      <img id="sealImg" alt="Royal Seal of Shirzan" loading="lazy" />
-    </header>
+  <!-- === Hero wrapper === -->
+  <section id="hero" class="hero">
+    <!-- Hero image/art -->
+    <!-- <img src="assets/img/front-door.jpg" alt="Library front door"> -->
 
-    <section class="grid">
-      <article class="card" id="card-rules">
-        <h3>🪶 Bramble’s Rules</h3>
-        <p>Common-sense wit, safety, and shenanigans policy for the Castle & Camp Cassillis.</p>
-        <div class="row">
-          <a class="btn link" href="rules/index.html">Open Rules</a>
-          <button class="btn secondary" data-demo="rules">Quick Preview</button>
-        </div>
-      </article>
-
-      <article class="card" id="card-books">
-        <h3>📚 Glimmerglass Books</h3>
-        <p>The growing saga of the House of Shirzan. Read online or download editions.</p>
-        <div class="row">
-          <a class="btn" href="https://glimmerglass-book1.netlify.app/" target="_blank">Book One — The Waters of the White Stag</a>
-          <a class="btn link" href="books/book2/index.html">Book Two — The Horn at Council Rock</a>
-        </div>
-      </article>
-
-      <article class="card" id="card-crest">
-        <h3>🛡️ Canon Crest</h3>
-        <p>View the official, unsquished crest used across books, scrolls, and letterhead.</p>
-        <div class="row">
-          <button class="btn" data-open="crest">Open Crest</button>
-          <code class="kbd muted" id="crestPathLabel"></code>
-        </div>
-      </article>
-
-      <article class="card" id="card-seal">
-        <h3>🔏 Royal Seal</h3>
-        <p>The current wax seal mark for the House of Shirzan. (Transparent PNG recommended.)</p>
-        <div class="row">
-          <button class="btn" data-open="seal">Open Seal</button>
-          <code class="kbd muted" id="sealPathLabel"></code>
-        </div>
-      </article>
-
-      <article class="card" id="card-dark">
-        <h3>🕯️ The Restricted Stacks</h3>
-        <p>Age-gated entry for advanced topics. Oath required to proceed.</p>
-        <div class="row">
-          <button class="btn" id="enterGate">Enter</button>
-          <a class="btn link" href="#" id="readOath">Read Oath</a>
-        </div>
-        <div class="age-gate" id="ageGate">
-          <div class="gate">
-            <label>Confirm your age:
-              <select id="ageSelect">
-                <option value="">Select…</option>
-                <option value="under">Under 13</option>
-                <option value="13-17">13–17</option>
-                <option value="18+">18+</option>
-                <option value="21+">21+</option>
-              </select>
-            </label>
-            <label>
-              <input type="checkbox" id="oathCheck" /> I swear to use knowledge for wisdom, kindness, and good. I promise I will not open the Forbidden Scrolls.
-            </label>
-            <div class="row">
-              <button class="btn" id="proceedGate">Proceed</button>
-              <button class="btn link" id="cancelGate">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <footer>
-      <p>Tip: Your asset paths are shown beside each button. If an image fails to load, you’ll see a toast with the exact path the browser tried.</p>
-      <p>Keyboard: open crest <span class="kbd">g</span>, open seal <span class="kbd">s</span></p>
-    </footer>
-  </div>
-
-  <!-- Modal for Crest/Seal preview -->
-  <div class="modal" id="modal">
-    <div class="modal-inner">
-      <div class="modal-head">
-        <strong id="modalTitle">Preview</strong>
-        <button class="btn link" id="closeModal">Close</button>
-      </div>
-      <div class="modal-body"><img id="modalImg" alt="Preview" /></div>
+    <!-- Bramble bubble overlay -->
+    <div id="bramble-bubble" class="speech-bubble" hidden>
+      <div class="bubble-body" id="brambleTxt"></div>
+      <button class="bubble-close" id="brambleClose" aria-label="close">✕</button>
     </div>
-  </div>
+  </section>
 
-  <div class="toast" id="toast"></div>
+  <!-- === Main Content === -->
+  <main id="page">
+    <div id="library-entrance">
+      <img src="assets/img/library-entrance.png" alt="">
 
+      <a id="library-card" href="toc.html" aria-label="Enter the Shirzan Library">
+        <img src="assets/img/library-card.png" alt="Shirzan Library Card">
+      </a>
+
+      <!-- Hotspots -->
+      <button id="armor-hotspot" class="hotspot" aria-label="Knight in armor" type="button"></button>
+      <button id="cat-hotspot" class="hotspot" aria-label="Cat (front)" type="button"></button>
+      <button id="catback-hotspot" class="hotspot" aria-label="Cat (back)" type="button"></button>
+      <button id="crest-hotspot" class="hotspot" aria-label="Crest" type="button"></button>
+      <button id="stag-hotspot" class="hotspot" aria-label="Stag hotspot" type="button"></button>
+
+      <!-- Bubbles -->
+      <div id="armor-bubble" class="speech-bubble" hidden>Cat, any chance of some Civet coffee?</div>
+      <div id="cat-bubble" class="speech-bubble" hidden>Meow. It’ll be a while… I just ate.</div>
+      <div id="consent-bubble" class="speech-bubble" hidden>Meow: It is nice to have a pet but I'm not the one that has your library card.</div>
+      <div id="crest-bubble" class="speech-bubble" hidden></div>
+      <div id="stag-bubble" class="speech-bubble" hidden>
+        Once, four bold children followed a white stag to the hidden falls. While crossing, the ledge gave way and the waters whisked them into the world of Glimmerglass.
+      </div>
+
+      <!-- Waterfalls -->
+      <figure id="waterfall-cover" hidden aria-hidden="true">
+        <img src="assets/img/waterfall-scene.jpg" alt="">
+      </figure>
+      <figure id="waterfall-scene" hidden>
+        <img src="assets/img/waterfall-scene.jpg" alt="Waterfall vignette">
+      </figure>
+    </div>
+  </main>
+
+  <!-- === JS includes (only one clean path) === -->
+  <script src="js/library-new.js" defer></script>
+
+  <!-- === Kicked handler (triggers Bramble bubble overlay) === -->
   <script>
-    // === Adjustable asset paths (change these to match your repo) ===
-    const ASSET_CREST_PATH = "assets/img/crest-canon.png";
-    const ASSET_SEAL_PATH  = "assets/img/seal-canon.png";
-
-    // — Fill header images
-    const crestImg = document.getElementById("crestImg");
-    const sealImg  = document.getElementById("sealImg");
-    crestImg.src = ASSET_CREST_PATH;
-    sealImg.src  = ASSET_SEAL_PATH;
-
-    // — Labels for quick path sanity check
-    document.getElementById("crestPathLabel").textContent = ASSET_CREST_PATH;
-    document.getElementById("sealPathLabel").textContent  = ASSET_SEAL_PATH;
-
-    // — Fail handlers to show visible feedback (not just console)
-    function showToast(msg){
-      const t=document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(()=>t.classList.remove('show'), 4200);
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('kicked') === 'integrity' && typeof ejectForForbiddenScrolls === 'function') {
+      ejectForForbiddenScrolls('integrity');   // uses your overlay bubble
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.hash);
     }
-    function bindLoadError(imgEl, label){
-      imgEl.addEventListener('error', ()=>{
-        showToast(`Missing asset: ${label} → ${imgEl.src}`);
-        imgEl.alt = `${label} not found`;
-        imgEl.style.border = '2px dashed #ef4444';
-        imgEl.style.padding = '4px';
-        imgEl.style.background = '#fff1f2';
-      }, { once:true });
-    }
-    bindLoadError(crestImg, 'Crest');
-    bindLoadError(sealImg,  'Seal');
+  });
+ <footer class="site-footer">
+  <div class="footer-inner">
+    <span id="cc-year"></span> © Ross A. Kennedy · House of Shirzan — All rights reserved.
+  </div>
+</footer>
 
-    // — Modal logic
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
-    document.getElementById('closeModal').addEventListener('click', ()=> modal.classList.remove('open'));
-    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('open'); });
+<script>
+  // Auto-year + Under-Construction gate
+  (function () {
+    const y = document.getElementById('cc-year');
+    if (y) y.textContent = new Date().getFullYear();
 
-    function openPreview(kind){
-      const path = kind==='crest' ? ASSET_CREST_PATH : ASSET_SEAL_PATH;
-      modalTitle.textContent = kind==='crest' ? 'Canon Crest' : 'Royal Seal';
-      modalImg.src = path + '?cache=' + Date.now(); // bust cache while testing
-      modal.classList.add('open');
-      // If the specific preview fails, toast it too
-      modalImg.onerror = ()=> showToast(`Could not load ${kind} at ${path}`);
-    }
-
-    document.querySelectorAll('[data-open]').forEach(btn=>{
-      btn.addEventListener('click', ()=> openPreview(btn.dataset.open));
-    });
-
-    // — Keyboard shortcuts: g = crest, s = seal
-    window.addEventListener('keydown', (e)=>{
-      if(e.key.toLowerCase()==='g') openPreview('crest');
-      if(e.key.toLowerCase()==='s') openPreview('seal');
-    });
-
-    // — Demo for Rules (optional)
-    document.querySelector('[data-demo="rules"]').addEventListener('click', ()=>{
-      showToast('This would open a light preview of Bramble\'s Rules. Link uses rules/index.html');
-    });
-
-    // — Age/Oath Gate logic
-    const enterGate = document.getElementById('enterGate');
-    const readOath  = document.getElementById('readOath');
-    const ageGate   = document.getElementById('ageGate');
-    const proceedGate = document.getElementById('proceedGate');
-    const cancelGate  = document.getElementById('cancelGate');
-    const ageSelect   = document.getElementById('ageSelect');
-    const oathCheck   = document.getElementById('oathCheck');
-
-    enterGate.addEventListener('click', ()=> ageGate.classList.add('open'));
-    readOath.addEventListener('click', (e)=>{
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('a.locked, a[data-locked="true"]');
+      if (!a) return;
       e.preventDefault();
-      alert('Oath of the Library:\n\nI will seek wisdom over mere knowledge,\nuse learning to lift others,\nand remember that truth without love is noise.\n\nI promise I will not open the Forbidden Scrolls.');
+      window.location.href = '/under-construction.html';
     });
-    cancelGate.addEventListener('click', ()=> ageGate.classList.remove('open'));
+  })();
+</script>
 
-    // Single, clean 21+ handler
-    proceedGate.addEventListener('click', ()=>{
-      const age = ageSelect ? ageSelect.value : '';
-      if(age!=="21+") { showToast('Entry restricted. 21+ only.'); return; }
-      if(!oathCheck.checked){ showToast('Please agree to the oath to proceed.'); return; }
-      // Replace with your real restricted landing page
-      window.location.href = 'restricted/index.html';
-    });
-  </script>
+
 </body>
 </html>

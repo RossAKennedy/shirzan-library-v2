@@ -1,0 +1,140 @@
+:root{
+  --bubble-bg: #fffffe;
+  --bubble-text: #222;
+  --bubble-shadow: 0 8px 24px rgba(0,0,0,.22);
+  --accent: #9a2a2a; /* subtle Shirzan red */
+}
+
+/* Layout */
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; background:#0b0b0b; color:#eee; }
+.door-wrap{
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(8px, 2vw, 16px);
+}
+.door-img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+
+/* Universal hotspot button (position via percentages to keep responsive) */
+.hotspot{
+  position: absolute;
+  width: 3.5%;
+  aspect-ratio: 1 / 1;
+  border: 2px solid rgba(255,255,255,.5);
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease;
+}
+.hotspot:focus-visible{ outline: 3px solid #fff; outline-offset: 2px; }
+.hotspot:hover{ transform: scale(1.08); background: rgba(255,255,255,.16); }
+
+/* Position these to match your image. Tweak the top/left after you load the page. */
+.hs-bust{ top: 28%; left: 19%; }     /* stone bust */
+.hs-stag{ top: 18%; left: 78%; }     /* carved stag motif / vignette area */
+.hs-cat { top: 64%; left: 14%; }     /* the cat near the bottom edge */
+
+/* Bramble's Library Card link – makes the CARD the entrance button */
+.card-link{
+  position: absolute;
+  top: 58%;
+  left: 64%;
+  width: 11%;
+  transform-origin: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-link img{
+  width: 100%;
+  height: auto;
+  display:block;
+  border-radius: 8px;
+  box-shadow: 0 14px 36px rgba(0,0,0,.45);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.card-link:hover img{
+  transform: scale(1.12);
+  box-shadow: 0 16px 48px rgba(0,0,0,.6);
+}
+/* Small tag that says “Library Card” */
+.card-label{
+  position: absolute;
+  bottom: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.7);
+  color: #fff;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font: 500 0.9rem/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  pointer-events: none;
+}
+
+/* Speech bubble */
+.bubble{
+  position: absolute;
+  max-width: min(440px, 70vw);
+  background: var(--bubble-bg);
+  color: var(--bubble-text);
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: var(--bubble-shadow);
+  border: 1px solid rgba(0,0,0,.08);
+  z-index: 4;
+}
+.bubble p{
+  margin:0;
+  font: 500 1rem/1.3 Georgia, "Times New Roman", serif;
+}
+.bubble::after{ /* tiny pointer */
+  content:"";
+  position:absolute;
+  bottom:-10px; left: 22px;
+  border-width:10px 10px 0 10px;
+  border-style:solid;
+  border-color: var(--bubble-bg) transparent transparent transparent;
+}
+.bubble-close{
+  position:absolute;
+  top: 6px; right: 8px;
+  border: none; background: transparent; color:#444; font-size: 20px;
+  cursor: pointer;
+}
+
+/* Waterfall vignette (350px wide) appears only after Stag has been hovered */
+.waterfall{
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 350px;
+  background: rgba(0,0,0,.5);
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.5);
+  z-index: 3;
+}
+.waterfall img{
+  width:100%; height:auto; display:block; border-radius: 6px;
+}
+.waterfall figcaption{
+  color:#ddd;
+  font: 500 .9rem/1.2 Georgia, "Times New Roman", serif;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* Small screens */
+@media (max-width: 720px){
+  .hotspot{ width: 5.5%; }
+  .card-link{ width: 18%; }
+  .waterfall{ width: min(80vw, 350px); }
+}

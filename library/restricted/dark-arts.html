@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  const OATH_KEY = "shirzan.darkarts.oath.v1";
+  try {
+    if (localStorage.getItem(OATH_KEY) !== "yes") {
+      location.replace("oath.html");
+    }
+  } catch(e) {
+    location.replace("oath.html");
+  }
+  <link rel="stylesheet" href="../css/toc.css">
+
+</script>
+
+<meta charset="utf-8"/>
+<title>The Restricted Stacks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  :root{ --ink:#e5e7eb; --muted:#9ca3af; }
+  html,body{height:100%;margin:0;background:#0b0b0f;color:var(--ink);
+    font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;display:grid;place-items:center;}
+  .room{ width:min(1280px,96vw); padding:28px; text-align:center }
+  h1{ font-size:clamp(22px,4.2vw,34px); margin:0 0 6px }
+  p{ color:var(--muted); margin:0 0 18px }
+
+  /* === Three-column Dark Arts layout === */
+  .dark-arts-grid {
+    display: grid;
+    grid-template-columns: 260px minmax(900px, 1fr) 260px;
+    gap: 20px;
+    align-items: start;
+    margin-top: 12px;
+  }
+  .dark-arts-grid .toc,
+  .dark-arts-grid .more {
+    position: sticky;
+    top: 10px;
+    align-self: start;
+    text-align: left;
+  }
+  .dark-arts-grid nav h3 { font-size: 1.05rem; margin: 0 0 .5rem; }
+  .dark-arts-grid nav ul { list-style: none; padding: 0; margin: 0; }
+  .dark-arts-grid nav li { margin: .45rem 0; }
+  .dark-arts-grid nav a { color: #e5e5e5; text-decoration: none; }
+  .dark-arts-grid nav a:hover { text-decoration: underline; }
+
+  /* Center column portal */
+  .portal{ display:flex; justify-content:center; }
+  .portal-wrap{
+    width:min(1200px,100%);
+    margin:0 auto;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid #18181b;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    background:#0b0b0f;
+  }
+  .portal-frame{
+    width:100%;
+    aspect-ratio: 3 / 2;  /* keeps image nicely framed */
+    height:auto;
+    display:block;
+    border:0;
+  }
+
+  /* Ensure the middle column content is centered within the grid cell */
+  .portal { justify-self: center; }
+
+  /* Responsive collapse */
+  @media (max-width: 980px) {
+    .dark-arts-grid { grid-template-columns: 1fr; }
+    .dark-arts-grid .toc,
+    .dark-arts-grid .more { position: static; }
+  }
+
+  .actions { margin: 12px auto 24px; text-align: center; }
+  .actions .btn.link { padding: .5rem .9rem; border: 1px solid #444; border-radius: 8px; text-decoration: none; color: #e5e5e5; }
+  .actions .btn.link:hover { background: #1f1f22; }
+</style>
+</head>
+<body>
+<div id="oath-banner" class="oath-banner">Access granted under Oath of Integrity</div>
+
+<div class="room room--dark-arts">
+  <h1>🕯️ The Dark Arts Chamber</h1>
+
+  <section class="dark-arts-grid" id="dark-arts-entry">
+    <!-- Left sidebar: Restricted TOC -->
+    <nav class="toc" aria-label="Restricted Contents">
+      <h3>Restricted · Contents</h3>
+      <ul>
+        <li><a href="../purgatory.html?kicked=integrity">📜 Forbidden Scroll</a></li>
+        <li><a href="wit-worth-stealing/poker-night.html">🎭 Wit Worth Stealing</a></li>
+        <li><a href="../index.html"
+   onclick="if (history.length > 1) { history.back(); return false; }">
+  ← Back to Library
+</a>
+</li>
+      </ul>
+    </nav>
+
+    <!-- Center portal (image/iframe) -->
+ <div class="portal">
+  <div class="portal-wrap">
+    <iframe
+      class="portal-frame"
+      src="poker-room.html"
+      title="Dark Arts Poker Room"
+      scrolling="no"
+      referrerpolicy="no-referrer">
+    </iframe>
+  </div>
+</div>
+
+
+
+    <!-- Right sidebar: More Rooms -->
+    <nav class="more" aria-label="More Rooms">
+      <h3>More Rooms</h3>
+      <ul>
+  <li><a href="under-construction-alchemy.html">⚗️ Alchemy</a></li>
+  <li><a href="under-construction-illusions.html">🪞 Illusions</a></li>
+  <li><a href="under-construction.html">📚 Records</a></li>
+  <li><a href="under-construction-philosophy.html">⚖️ Philosophy</a></li>
+</ul>
+
+    </nav>
+  </section>
+
+  <div class="actions">
+   <a href="../index.html"
+   onclick="if (history.length > 1) { history.back(); return false; }">
+  ← Back to Library
+</a>
+
+  </div>
+</div>
+<style>
+/* === Dark Arts: final sizing/centering overrides (page-scoped) === */
+.room--dark-arts .dark-arts-grid{
+  display:grid;
+  grid-template-columns: 260px minmax(700px,1fr) 260px !important;
+  gap:20px; align-items:start; margin-top:12px;
+}
+
+.room--dark-arts .portal{
+  justify-self:center !important;
+  display:flex; justify-content:center;
+}
+
+.room--dark-arts .portal-wrap{
+  /* Never exceed the middle track; leave room for 2×260 sidebars + gaps */
+  width: min(960px, calc(100vw - 560px)) !important;
+  margin: 0 auto !important;
+  border-radius:16px; overflow:hidden;
+  border:1px solid #18181b;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  background:#0b0b0f;
+}
+
+.room--dark-arts .portal-img{
+  display:block; width:100% !important; height:auto !important; object-fit:cover;
+}
+
+/* keep sidebars sticky but not overlapping */
+.room--dark-arts .toc,
+.room--dark-arts .more{ position:sticky; top:10px; align-self:start; text-align:left; }
+
+/* mobile collapse */
+@media (max-width: 980px){
+  .room--dark-arts .dark-arts-grid{ grid-template-columns:1fr !important; }
+  .room--dark-arts .portal-wrap{ width: min(100%, 900px) !important; }
+}
+</style>
+<style>
+/* === Dark Arts final layout overrides (page-scoped) === */
+.room--dark-arts .dark-arts-grid{
+  display:grid;
+  grid-template-columns: 260px minmax(720px,1fr) 260px; /* left | center | right */
+  gap:28px;
+  align-items:start;
+  margin-top:12px;
+}
+
+.room--dark-arts .toc{ text-align:left; }
+.room--dark-arts .more{ text-align:right; justify-self:end; } /* keep right column at far edge */
+
+/* Center the middle content and constrain it so it never crowds the sidebars */
+.room--dark-arts .portal{
+  justify-self:center;
+  display:flex; justify-content:center;
+}
+
+.room--dark-arts .portal-wrap{
+  /* viewport minus (260+260 side columns + 2*28 gaps = 576px) */
+  width: min(940px, calc(100vw - 576px)) !important;
+  aspect-ratio: 3 / 2;               /* clean 3:2 frame */
+  margin: 0 auto;
+  border-radius:16px; overflow:hidden;
+  border:1px solid #18181b;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  background:#0b0b0f;
+  z-index: 0;                        /* ensure sidebars aren't overlapped */
+}
+
+<style>
+/* === Dark Arts: final layout overrides (single, clean block) === */
+.room--dark-arts .dark-arts-grid{
+  display:grid;
+  grid-template-columns: 260px minmax(720px,1fr) 260px;
+  gap:28px;
+  align-items:start;
+  margin-top:12px;
+}
+.room--dark-arts .toc{ text-align:left; }
+.room--dark-arts .more{ text-align:right; justify-self:end; }
+
+.room--dark-arts .portal{
+  justify-self:center;
+  display:flex; justify-content:center;
+}
+.room--dark-arts .portal-wrap{
+  /* Leave room for 260 + 260 sidebars + 2*28 gaps = 576px */
+  width: min(940px, calc(100vw - 576px));
+  aspect-ratio: 3 / 2;
+  margin: 0 auto;
+  border-radius:16px; overflow:hidden;
+  border:1px solid #18181b;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  background:#0b0b0f;
+  z-index:0;
+}
+.room--dark-arts .portal-frame{
+  width:100%;
+  height:100%;
+  border:0; display:block;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .room--dark-arts .dark-arts-grid{ grid-template-columns:1fr; gap:16px; }
+  .room--dark-arts .more{ text-align:left; justify-self:start; }
+  .room--dark-arts .portal-wrap{ width:min(100%, 900px); }
+}
+</style>
+
+
+</body>
+</html>

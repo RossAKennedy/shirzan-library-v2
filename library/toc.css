@@ -1,0 +1,47 @@
+/* === Medieval hover glow and illumination === */
+
+/* Headings get a gentle illuminated drop-glow */
+.toc-col h2 {
+  position: relative;
+  text-shadow:
+    0 0 4px rgba(201,168,92,.4),
+    0 0 10px rgba(201,168,92,.25);
+  transition: text-shadow .25s ease;
+}
+.toc-col h2:hover {
+  text-shadow:
+    0 0 6px rgba(255,220,120,.7),
+    0 0 18px rgba(201,168,92,.6);
+}
+
+/* Links glow like ink gilded with gold leaf */
+.toc-list a {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.toc-list a:hover,
+.toc-list a:focus-visible {
+  color: var(--gold);
+  text-shadow:
+    0 0 6px rgba(255,215,140,.6),
+    0 0 16px rgba(255,230,180,.4);
+}
+
+/* Header and footer polish */
+.toc-header, .toc-footer {
+  background:
+    linear-gradient(180deg, rgba(255,240,205,.75), rgba(245,225,185,.75));
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+}
+
+/* Motto subtle shimmer */
+.toc-footer .motto {
+  text-shadow: 0 0 6px rgba(255,215,140,.35);
+}
+.toc-footer .motto:hover {
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(255,215,140,.7);
+}

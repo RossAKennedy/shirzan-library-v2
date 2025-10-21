@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "title": "The Waters of the White Stag (Sample)",
+      "path": "books/sample.pdf",
+      "subject": "Glimmerglass",
+      "unit": "Book One",
+      "tags": {
+        "type": "PDF",
+        "grade": "All"
+      }
+    }
+  ]
+}
