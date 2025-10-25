@@ -44,6 +44,33 @@ body{
 
 
 /* The wrapper anchors absolutely-positioned children */
+/* === Canon Crest (House of Shirzan) === */
+img.crest,
+.crest img {
+  width: clamp(120px, 15vw, 300px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+}
+
+.crest-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.crest-wrap .tm {
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  font: 700 .72rem/1 Georgia, Garamond, serif;
+  opacity: .75;
+  user-select: none;
+}
+
 #library-entrance{
   position: relative;
   width: min(1100px, 92vw);
